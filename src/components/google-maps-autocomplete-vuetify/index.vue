@@ -3,29 +3,23 @@
     :value="value"
     :items="virtualItems"
     :search-input.sync="search"
-    :disabled="!readyForSearch"
+    :disabled="!initialized"
     :loading="isLoading"
     :hide-no-data="isLoading || !search"
     clearable
     item-text="name"
     item-value="placeId"
     return-object
-    placeholder="店舗名で検索してください"
-    data-vv-name="business-name-search"
     @input="onSelected"
+    v-bind="$attrs"
   >
     <template slot="no-data">
       <v-list-tile>
-        <v-list-tile-title>
-          見つかりませんでした。
-        </v-list-tile-title>
+        <v-list-tile-title>{{noResultsFoundMessage}}</v-list-tile-title>
       </v-list-tile>
     </template>
-  
-    <template
-      slot="item"
-      slot-scope="{ item }"
-    >
+
+    <template slot="item" slot-scope="{ item }">
       <v-list-tile-avatar>
         <v-icon>place</v-icon>
       </v-list-tile-avatar>
@@ -38,7 +32,7 @@
 </template>
 
 <script>
-import debouncePromise from 'debounce-promise'
+import debouncePromise from "debounce-promise";
 
 export default {
   props: {
@@ -49,6 +43,10 @@ export default {
     restrictToCountries: {
       type: Array,
       default: () => []
+    },
+    noResultsFoundMessage: {
+      type: String,
+      default: "No results found"
     }
   },
   data() {
@@ -58,40 +56,38 @@ export default {
       lastItemUpdate: 0,
       search: null,
       autocomplete: null,
-      geocoder: null
-    }
+      geocoder: null,
+      initialized: false
+    };
   },
   computed: {
-    readyForSearch() {
-      return !!this.autocomplete && !!this.geocoder
-    },
     // If we saved the value but not the items, ensure that we spoof an items array
     // with at least the value so that the component still works
     virtualItems() {
       if (this.items.length === 0 && this.value) {
-        return [this.value]
+        return [this.value];
       } else {
-        return this.items
+        return this.items;
       }
     }
   },
   watch: {
     search(text) {
       if (text) {
-        this.isLoading = true
+        this.isLoading = true;
         this.searchPlaces(text).then(({ predictions, status }) => {
           const autocompleteError =
-            status != google.maps.places.PlacesServiceStatus.OK
+            status != google.maps.places.PlacesServiceStatus.OK;
 
           if (!autocompleteError) {
             this.items = predictions.map(p => ({
               name: p.structured_formatting.main_text,
               address: p.description,
               placeId: p.place_id
-            }))
+            }));
           }
-          this.isLoading = false
-        })
+          this.isLoading = false;
+        });
       }
     }
     // Resolve lat and lng of selected place's location, and update selected place with that
@@ -99,9 +95,11 @@ export default {
   },
   created() {
     this.$gmapApiPromiseLazy().then(() => {
-      this.geocoder = new window.google.maps.Geocoder()
-      this.autocomplete = new window.google.maps.places.AutocompleteService()
-    })
+      this.geocoder = new window.google.maps.Geocoder();
+      this.autocomplete = new window.google.maps.places.AutocompleteService();
+      this.initialized = true;
+      this.$emit("initialized");
+    });
   },
   methods: {
     searchPlaces: debouncePromise(function(text) {
@@ -112,28 +110,28 @@ export default {
             componentRestrictions: { country: this.restrictToCountries }
           },
           (predictions, status) => {
-            resolve({ predictions, status })
+            resolve({ predictions, status });
           }
-        )
-      })
+        );
+      });
     }, 500),
     // When selected, get the lat/lng info and merge with original selection
     onSelected(selectedItem) {
       if (!!selectedItem) {
-        const { placeId } = selectedItem
+        const { placeId } = selectedItem;
         this.geocoder.geocode({ placeId }, ([{ geometry: { location } }]) => {
           this.$emit(
-            'input',
+            "input",
             Object.assign({}, selectedItem, {
               location: {
                 lat: location.lat(),
                 lng: location.lng()
               }
             })
-          )
-        })
+          );
+        });
       }
     }
   }
-}
+};
 </script>
