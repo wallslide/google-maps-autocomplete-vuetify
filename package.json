@@ -1,7 +1,22 @@
 {
-  "name": "google-maps-autocomplete-vuetify",
+  "name": "@wallslide/google-maps-autocomplete-vuetify",
   "version": "1.0.0",
-  "private": true,
+  "description": "Vuetify autocomplete component for google places. Easy to link to a google map component!",
+  "author": "Jeremy Hall <jeremy@nagoos.com>",
+  "license": "MIT",
+  "keywords": [
+    "vuetify",
+    "autocomplete",
+    "maps",
+    "google",
+    "vue"
+  ],
+  "main": "./dist/google-maps-autocomplete-vuetify.common",
+  "unpkg": "./dist/google-maps-autocomplete-vuetify.umd.min.js",
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name google-maps-autocomplete-vuetify ./src/components/google-maps-autocomplete-vuetify/index.vue",
@@ -12,9 +27,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "debounce-promise": "^3.1.2",
-    "vue": "^2.6.10",
-    "vue2-google-maps": "^0.10.6",
-    "vuetify": "^1.5.5"
+    "vue2-google-maps": "^0.10.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -37,6 +50,10 @@
     "vue-json-pretty": "^1.6.0",
     "vue-template-compiler": "^2.5.21",
     "vuetify-loader": "^1.0.5"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.10",
+    "vuetify": "^1.5.5"
   },
   "eslintConfig": {
     "root": true,
