@@ -3,7 +3,9 @@ import Vue from "vue";
 import Vuetify from "vuetify";
 import * as VueGoogleMaps from "vue2-google-maps";
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  iconfont: "md"
+});
 
 Vue.use(VueGoogleMaps, {
   load: {

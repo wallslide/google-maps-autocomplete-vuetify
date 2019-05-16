@@ -1,32 +1,38 @@
 <template>
-  <v-card class="ma-1">
-    <v-layout column>
-      <MapsAutocomplete
-        v-model="address"
-        :restrict-to-countries="['jp']"
-        @initialized="mapsLoaded = true"
-        class="ma-1"
-        placeholder="Enter a business name"
-      />
-      <GmapMap
-        v-if="mapsLoaded"
-        :center="center"
-        :options="{streetViewControl: false, mapTypeControl: false}"
-        :zoom="16"
-        style="width: 100%; height: 400px"
-      >
-        <GmapMarker v-if="address" :position="center"/>
-        <v-flex xs12/>
-      </GmapMap>
-    </v-layout>
-  </v-card>
+  <v-layout column>
+    <v-card>
+      <v-layout column>
+        <MapsAutocomplete
+          v-model="address"
+          :restrict-to-countries="['jp']"
+          @initialized="mapsLoaded = true"
+          class="ma-1"
+          placeholder="Enter a business name"
+        />
+        <GmapMap
+          v-if="mapsLoaded"
+          :center="center"
+          :options="{streetViewControl: false, mapTypeControl: false}"
+          :zoom="16"
+          style="width: 100%; height: 400px"
+        >
+          <GmapMarker v-if="address" :position="center"/>
+        </GmapMap>
+      </v-layout>
+    </v-card>
+    <v-card dark v-if="address">
+      <VueJsonPretty :data="address"></VueJsonPretty>
+    </v-card>
+  </v-layout>
 </template>
 
 <script>
 import MapsAutocomplete from "@/components/google-maps-autocomplete-vuetify";
+import VueJsonPretty from "vue-json-pretty";
 export default {
   components: {
-    MapsAutocomplete
+    MapsAutocomplete,
+    VueJsonPretty
   },
   data() {
     return {
