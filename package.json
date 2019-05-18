@@ -25,7 +25,6 @@
     "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
-    "core-js": "^2.6.5",
     "debounce-promise": "^3.1.2",
     "vue2-google-maps": "^0.10.6"
   },
@@ -41,6 +40,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-preset-vue": "^2.0.2",
+    "core-js": "^2.6.5",
     "env-path": "^1.0.7",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
