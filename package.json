@@ -1,9 +1,14 @@
 {
-  "name": "@wallslide/google-maps-autocomplete-vuetify",
-  "version": "1.0.0",
+  "name": "@nagoos/google-maps-autocomplete-vuetify",
+  "version": "1.0.1",
+  "public": true,
   "description": "Vuetify autocomplete component for google places. Easy to link to a google map component!",
   "author": "Jeremy Hall <jeremy@nagoos.com>",
   "license": "MIT",
+  "repositiory": {
+    "type": "git",
+    "url": "https://github.com/wallslide/google-maps-autocomplete-vuetify.git"
+  },
   "keywords": [
     "vuetify",
     "autocomplete",
