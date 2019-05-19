@@ -26,6 +26,8 @@ Vue.use(VueGoogleMaps, {
 });
 ```
 
+This component relies on the `Maps JavaScript API`, `Places API`, and the `Geocoding API` which you can enable from your [google cloud console](https://console.cloud.google.com/google/maps-apis/overview).
+
 ## Usage
 
 1. Import the library into your component:
@@ -74,3 +76,19 @@ Example:
   }
 }
 ```
+
+### restrict-to-countries
+
+Pass an array of countries to limit the Places results to those countries.
+
+### initialized
+
+The component will emit an `initialized` event once the Google Maps libraries are ready, and it has prepared itself. Once this event has been emitted, you know it is safe to load a google map.
+
+### placeholder
+
+Pass a placeholder to the component's autocomplete input. This lets you display a message when the input is blank.
+
+### noResultsFoundMessage
+
+Pass a message to be displayed when the Google Places API couldn't find any results.
