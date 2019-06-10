@@ -1,6 +1,6 @@
 {
   "name": "@nagoos/google-maps-autocomplete-vuetify",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "public": true,
   "description": "Vuetify autocomplete component for google places. Easy to link to a google map component!",
   "author": "Jeremy Hall <jeremy@nagoos.com>",
@@ -55,9 +55,11 @@
     "eslint-plugin-vue": "^5.0.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
+    "vue": "^2.6.10",
     "vue-cli-plugin-vuetify": "^0.5.0",
     "vue-json-pretty": "^1.6.0",
     "vue-template-compiler": "^2.5.21",
+    "vuetify": "^1.5.14",
     "vuetify-loader": "^1.0.5"
   },
   "peerDependencies": {

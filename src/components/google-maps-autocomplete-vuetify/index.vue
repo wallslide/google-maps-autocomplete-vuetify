@@ -77,7 +77,7 @@ export default {
         this.isLoading = true;
         this.searchPlaces(text).then(({ predictions, status }) => {
           const autocompleteError =
-            status != google.maps.places.PlacesServiceStatus.OK;
+            status != window.google.maps.places.PlacesServiceStatus.OK;
 
           if (!autocompleteError) {
             this.items = predictions.map(p => ({
@@ -117,7 +117,7 @@ export default {
     }, 500),
     // When selected, get the lat/lng info and merge with original selection
     onSelected(selectedItem) {
-      if (!!selectedItem) {
+      if (selectedItem) {
         const { placeId } = selectedItem;
         this.geocoder.geocode({ placeId }, ([{ geometry: { location } }]) => {
           this.$emit(
